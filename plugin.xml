@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <name>
+        <lang name="default">Delete Comment</lang>
+    </name>
+    <author>
+        <lang name="default">Alexandr Verenik</lang>
+        <lang name="russian">Александр Вереник</lang>
+    </author>
+    <homepage>https://github.com/wasja1982/livestreet_deletecomment</homepage>
+    <version>1.0.0</version>
+    <requires>
+        <livestreet>1.0.3</livestreet>
+        <plugins>
+
+        </plugins>
+    </requires>
+    <description>
+        <lang name="default">Delete comment.</lang>
+        <lang name="russian">Удаление любых комментариев в своих топиках.</lang>
+    </description>
+    <delegate>
+        <module></module>
+        <action></action>
+        <template></template>
+        <entity></entity>
+    </delegate>
+</plugin>
