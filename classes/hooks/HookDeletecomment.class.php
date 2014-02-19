@@ -15,10 +15,10 @@ class PluginDeletecomment_HookDeletecomment extends Hook {
             return;
         }
         $this->AddHook('template_comment_action', 'InjectDeleteLink');
+        $this->AddHook('template_comment_tree_end', 'InjectDeleteTree');
     }
 
-    public function InjectDeleteLink($aParam)
-    {
+    public function InjectDeleteLink($aParam) {
         $oUserCurrent=$this->User_GetUserCurrent();
         if (!$oUserCurrent || $oUserCurrent->isAdministrator()) {
             return;
@@ -31,6 +31,26 @@ class PluginDeletecomment_HookDeletecomment extends Hook {
         $sTemplatePath = Plugin::GetTemplatePath(__CLASS__) . 'inject_deletecomment_command.tpl';
         if ($this->Viewer_TemplateExists($sTemplatePath)) {
             $this->Viewer_Assign('oComment', $oComment);
+            return $this->Viewer_Fetch($sTemplatePath);
+        }
+    }
+
+    public function InjectDeleteTree($aParam) {
+        $oUserCurrent=$this->User_GetUserCurrent();
+        if (!$oUserCurrent || $oUserCurrent->isAdministrator()) {
+            return;
+        }
+        if ($aParam['sTargetType'] != 'topic') {
+            return;
+        }
+        $oTopic = $this->Topic_GetTopicById($aParam['iTargetId']);
+        if (!$oTopic || $oTopic->getUserId()!=$oUserCurrent->getId()) {
+            return;
+        }
+        $sTemplatePath = Plugin::GetTemplatePath(__CLASS__) . 'inject_deletecomment_tree.tpl';
+        if ($this->Viewer_TemplateExists($sTemplatePath)) {
+            $this->Viewer_Assign('iAuthorId', $oTopic->getUserId());
+            $this->Viewer_Assign('sAuthorNotice', $this->Lang_Get('topic_author'));
             return $this->Viewer_Fetch($sTemplatePath);
         }
     }
