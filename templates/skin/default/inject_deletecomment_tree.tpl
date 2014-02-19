@@ -1,9 +1,9 @@
 <script type="text/javascript">
     jQuery(document).ready(function($){
         {foreach from=$aComments item=oComment}
+            $("#comment_id_{$oComment->getId()}").css("padding", "10px 0 0 40px");
             {if $oComment->getDelete() and $oUserCurrent and !$oUserCurrent->isAdministrator()}
                 {assign var="oUser" value=$oComment->getUser()}
-                $("#comment_id_{$oComment->getId()}").css("padding", "10px 0 0 40px");
                 $("#comment_id_{$oComment->getId()}").html('<a name="comment{$oComment->getId()}"></a>\
 \
 		<div class="folding"></div>\
