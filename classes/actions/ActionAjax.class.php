@@ -39,6 +39,10 @@ class PluginDeletecomment_ActionAjax extends PluginDeletecomment_Inherit_ActionA
                 $this->Message_AddErrorSingle($this->Lang_Get('not_access'),$this->Lang_Get('error'));
                 return;
             }
+            if (Config::Get('plugin.deletecomment.limit_time') && strtotime($oComment->getDate())<=time()-Config::Get('plugin.deletecomment.limit_time')) {
+                $this->Message_AddErrorSingle($this->Lang_Get('plugin.deletecomment.comment_delete_error_time'),$this->Lang_Get('error'));
+                return;
+            }
             /**
              * Устанавливаем пометку о том, что комментарий удален
              */

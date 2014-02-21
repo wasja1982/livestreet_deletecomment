@@ -72,8 +72,9 @@
 				<li class="goto goto-comment-parent"><a href="#" onclick="ls.comments.goToParentComment({$oComment->getId()},{$oComment->getPid()}); return false;" title="{$aLang.comment_goto_parent}">↑</a></li>\
 			{/if}\
 			<li class="goto goto-comment-child"><a href="#" title="{$aLang.comment_goto_child}">↓</a></li>\
-\
+                {if !$oConfig->GetValue('plugin.deletecomment.use_limit_time') || (strtotime($oComment->getDate()) > $smarty.now - $oConfig->GetValue('plugin.deletecomment.limit_time'))}\
 					<li><a href="#" class="comment-repair link-dotted" onclick="ls.comments.toggle(this,{$oComment->getId()}); return false;">{$aLang.comment_repair}</a></li>\
+                {/if}\
 		</ul>');
             {/if}
         {/foreach}

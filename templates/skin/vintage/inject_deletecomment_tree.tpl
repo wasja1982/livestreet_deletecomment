@@ -65,7 +65,9 @@
 \
 \
 			<ul class="comment-actions">\
+                {if !$oConfig->GetValue('plugin.deletecomment.use_limit_time') || (strtotime($oComment->getDate()) > $smarty.now - $oConfig->GetValue('plugin.deletecomment.limit_time'))}\
 					<li><a href="#" class="comment-repair link-dotted" onclick="ls.comments.toggle(this,{$oComment->getId()}); return false;">{$aLang.comment_repair}</a></li>\
+                {/if}\
 			</ul>');
             {/if}
         {/foreach}
