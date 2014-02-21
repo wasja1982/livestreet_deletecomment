@@ -10,18 +10,20 @@
  **/
 
 class PluginDeletecomment_ActionAjax extends PluginDeletecomment_Inherit_ActionAjax {
-	/**
-	 * Удаление/восстановление комментария
-	 *
-	 */
-	protected function EventCommentDelete() {
-		/**
-		 * Есть права на удаление комментария?
-		 */
-		if ($this->ACL_CanDeleteComment($this->oUserCurrent)) {
-			return parent::EventCommentDelete();
-		} else {
-            if (!$this->oUserCurrent) {
+    /**
+     * Удаление/восстановление комментария
+     *
+     */
+    protected function EventCommentDelete() {
+        /**
+         * Есть права на удаление комментария?
+         */
+        if ($this->ACL_CanDeleteComment($this->oUserCurrent)) {
+            return parent::EventCommentDelete();
+        } else {
+            $bUseLimit = Config::Get('plugin.deletecomment.use_limit');
+            $iLimitRating = Config::Get('plugin.deletecomment.limit_rating');
+            if (!$this->oUserCurrent || ($bUseLimit && $this->oUserCurrent->getRating() < $iLimitRating)) {
                 $this->Message_AddErrorSingle($this->Lang_Get('not_access'),$this->Lang_Get('error'));
                 return;
             }
@@ -68,6 +70,6 @@ class PluginDeletecomment_ActionAjax extends PluginDeletecomment_Inherit_ActionA
             $this->Viewer_AssignAjax('bState',$bState);
             $this->Viewer_AssignAjax('sTextToggle',$sTextToggle);
         }
-	}
+    }
 }
 ?>
