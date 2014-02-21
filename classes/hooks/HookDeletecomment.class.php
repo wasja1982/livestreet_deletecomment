@@ -11,10 +11,10 @@
 
 class PluginDeletecomment_HookDeletecomment extends Hook {
     public function RegisterHook() {
-        $bUseLimit = Config::Get('plugin.deletecomment.use_limit');
+        $bUseLimitRating = Config::Get('plugin.deletecomment.use_limit_rating');
         $iLimitRating = Config::Get('plugin.deletecomment.limit_rating');
         $oUserCurrent=$this->User_GetUserCurrent();
-        if (!$oUserCurrent || $oUserCurrent->isAdministrator() || ($bUseLimit && $oUserCurrent->getRating() < $iLimitRating)) {
+        if (!$oUserCurrent || $oUserCurrent->isAdministrator() || ($bUseLimitRating && $oUserCurrent->getRating() < $iLimitRating)) {
             return;
         }
         $this->AddHook('template_comment_action', 'InjectDeleteLink');

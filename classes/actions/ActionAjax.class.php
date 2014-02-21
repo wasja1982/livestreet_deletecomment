@@ -21,9 +21,9 @@ class PluginDeletecomment_ActionAjax extends PluginDeletecomment_Inherit_ActionA
         if ($this->ACL_CanDeleteComment($this->oUserCurrent)) {
             return parent::EventCommentDelete();
         } else {
-            $bUseLimit = Config::Get('plugin.deletecomment.use_limit');
+            $bUseLimitRating = Config::Get('plugin.deletecomment.use_limit_rating');
             $iLimitRating = Config::Get('plugin.deletecomment.limit_rating');
-            if (!$this->oUserCurrent || ($bUseLimit && $this->oUserCurrent->getRating() < $iLimitRating)) {
+            if (!$this->oUserCurrent || ($bUseLimitRating && $this->oUserCurrent->getRating() < $iLimitRating)) {
                 $this->Message_AddErrorSingle($this->Lang_Get('not_access'),$this->Lang_Get('error'));
                 return;
             }
