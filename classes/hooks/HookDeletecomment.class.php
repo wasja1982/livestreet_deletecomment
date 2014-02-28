@@ -34,6 +34,8 @@ class PluginDeletecomment_HookDeletecomment extends Hook {
         $sTemplatePath = Plugin::GetTemplatePath(__CLASS__) . 'inject_deletecomment_command.tpl';
         if ($this->Viewer_TemplateExists($sTemplatePath)) {
             $this->Viewer_Assign('oComment', $oComment);
+            $this->Viewer_Assign('oConfig',Config::getInstance());
+            $this->Viewer_Assign('oUserCurrent',$oUserCurrent);
             return $this->Viewer_Fetch($sTemplatePath);
         }
     }
